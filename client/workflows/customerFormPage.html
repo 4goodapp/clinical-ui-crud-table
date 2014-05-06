@@ -1,0 +1,16 @@
+
+<template name="customerFormPage">
+  <div id="customerFormPage">
+      <div class="container">
+        {{> customerForm }}
+        <br>
+        <div class="col col-md-6 col-md-offset-3">
+          {{#if isNewTask}}
+            <button id="createNewCustomerButton" type="button" class="fullwidth btn btn-info" width="100%">Create New User!</button>
+          {{else}}
+            <button id="previewCustomerButton" class="fullwidth btn btn-success">Preview Customer</button>
+          {{/if}}
+        </div>
+      </div>
+  </div>
+</template>
