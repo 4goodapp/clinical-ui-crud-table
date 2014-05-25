@@ -3,9 +3,6 @@ clinical-ui-crud-table
 
 Meteor applet demonstrating a CRUD best-practice using the Blaze layout, Bootstrap3, sortable/searchable tables, a card based UI, and various other goodies.
 
-Demo available at [http://clinical-ui-crud-table.meteor.com/](http://clinical-ui-crud-table.meteor.com/)  
-
-
 Installation  
 ------------------------
 
