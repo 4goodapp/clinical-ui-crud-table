@@ -27,8 +27,13 @@ Router.map(function(){
 
 Template.customersListPage.helpers({
   customersList: function(){
+    var customersCount = CustomerAccounts.find({$or:[
+      {FirstName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }},
+      {LastName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }}
+      ]
+    }); 
     Session.set('receivedData', new Date());
-    Session.set('paginationCount', Math.floor(CustomerAccounts.find().count() / Session.get('tableLimit')));
+    Session.set('paginationCount', Math.floor(customersCount / Session.get('tableLimit')));
     return CustomerAccounts.find({$or:[
       {FirstName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }},
       {LastName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }}
