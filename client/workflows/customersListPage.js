@@ -59,6 +59,8 @@ Template.customersListPage.helpers({
 Template.customersListPage.events({
   'keyup #searchInput':function(){
     Session.set('accountSearchFilter', $('#searchInput').val());
+    Session.setDefault('selectedPagination', 0);
+    Session.setDefault('skipCount', 0);
   },
   'click #twentyButton':function(){
     Session.set('tableLimit', 20);
