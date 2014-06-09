@@ -33,7 +33,7 @@ Template.customersListPage.helpers({
       ]
     }); 
     Session.set('receivedData', new Date());
-    Session.set('paginationCount', Math.floor(customersCount / Session.get('tableLimit')));
+    Session.set('paginationCount', Math.floor((customersCount - 1) / Session.get('tableLimit')) + 1);
     return CustomerAccounts.find({$or:[
       {FirstName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }},
       {LastName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }}
