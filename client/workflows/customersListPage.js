@@ -1,9 +1,9 @@
-Session.setDefault('receivedData', false);
-Session.setDefault('accountSearchFilter', '');
-Session.setDefault('tableLimit', 20);
-Session.setDefault('paginationCount', 1);
-Session.setDefault('selectedPagination', 0);
-Session.setDefault('skipCount', 0);
+Session.setDefault('customersReceivedData', false);
+Session.setDefault('customersSearchFilter', '');
+Session.setDefault('customersTableLimit', 20);
+Session.setDefault('customersPaginationCount', 1);
+Session.setDefault('customersSelectedPagination', 0);
+Session.setDefault('customersSkipCount', 0);
 
 // Meteor.autorun(function(){
 //   Meteor.subscribe('customerAccounts');
@@ -28,23 +28,23 @@ Router.map(function(){
 Template.customersListPage.helpers({
   customersList: function(){
     var customersCount = CustomerAccounts.find({$or:[
-      {FirstName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }},
-      {LastName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }}
+      {FirstName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }},
+      {LastName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }}
       ]
-    }); 
-    Session.set('receivedData', new Date());
-    Session.set('paginationCount', Math.floor((customersCount - 1) / Session.get('tableLimit')) + 1);
+    });
+    Session.set('customersReceivedData', new Date());
+    Session.set('customersPaginationCount', Math.floor((customersCount - 1) / Session.get('customersTableLimit')) + 1);
     return CustomerAccounts.find({$or:[
-      {FirstName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }},
-      {LastName: { $regex: Session.get('accountSearchFilter'), $options: 'i' }}
+      {FirstName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }},
+      {LastName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }}
       ]
-    },{limit: Session.get('tableLimit'), skip: Session.get('skipCount')});
+    },{limit: Session.get('customersTableLimit'), skip: Session.get('customersSkipCount')});
   },
   rendered: function(){
     $(this.find('#example')).tablesorter();
 
     Deps.autorun(function(){
-      console.log(Session.get('receivedData'))
+      console.log(Session.get('customersReceivedData'))
       setTimeout(function(){
         $("#example").trigger("update");
       }, 200);
@@ -58,23 +58,23 @@ Template.customersListPage.helpers({
 
 Template.customersListPage.events({
   'keyup #searchInput':function(){
-    Session.set('accountSearchFilter', $('#searchInput').val());
-    Session.setDefault('selectedPagination', 0);
-    Session.setDefault('skipCount', 0);
+    Session.set('customersSearchFilter', $('#searchInput').val());
+    Session.setDefault('customersSelectedPagination', 0);
+    Session.setDefault('customersSkipCount', 0);
   },
   'click #twentyButton':function(){
-    Session.set('tableLimit', 20);
+    Session.set('customersTableLimit', 20);
   },
   'click #fiftyButton': function(){
-    Session.set('tableLimit', 50);
+    Session.set('customersTableLimit', 50);
   },
   'click #hundredButton': function(){
-    Session.set('tableLimit', 100);
+    Session.set('customersTableLimit', 100);
   },
   'click .pagination-btn':function(){
     //alert(JSON.stringify(this.index));
-    Session.set('selectedPagination', this.index);
-    Session.set('skipCount', this.index * Session.get('tableLimit'));
+    Session.set('customersSelectedPagination', this.index);
+    Session.set('customersSkipCount', this.index * Session.get('customersTableLimit'));
   },
   'click .customerRow':function(){
     Session.set('selectedUser', this._id);
@@ -86,11 +86,11 @@ Template.customersListPage.events({
 
 Template.customersListPage.helpers({
   getPaginationCount: function(){
-    return Session.get('paginationCount');
+    return Session.get('customersPaginationCount');
   },
   paginationButtonList: function(){
     var paginationArray = [];
-    for (var i = 0; i < Session.get('paginationCount'); i++) {
+    for (var i = 0; i < Session.get('customersPaginationCount'); i++) {
       paginationArray[i] = {
         index: i
       };
@@ -102,17 +102,17 @@ Template.customersListPage.helpers({
     }
   },
   isTwentyActive: function(){
-    if(Session.get('tableLimit') === 20){
+    if(Session.get('customersTableLimit') === 20){
       return "active";
     }
   },
   isFiftyActive: function(){
-    if(Session.get('tableLimit') === 50){
+    if(Session.get('customersTableLimit') === 50){
       return "active";
     }
   },
   isHundredActive: function(){
-    if(Session.get('tableLimit') === 100){
+    if(Session.get('customersTableLimit') === 100){
       return "active";
     }
   }
@@ -122,7 +122,7 @@ Template.customersListPage.helpers({
 
 Template.paginationButton.helpers({
   pageActive: function(){
-    if(this.index === Session.get('selectedPagination')){
+    if(this.index === Session.get('customersSelectedPagination')){
       return "active";
     }
   },
