@@ -1,30 +1,3 @@
-//-------------------------------------------------------------
-// 0. Sessions Variables
-
-// Session.set('editing_first_name', false);
-// Session.set('editing_last_name', false);
-// Session.set('editing_company', false);
-// Session.set('editing_address', false);
-// Session.set('editing_city', false);
-// Session.set('editing_county', false);
-// Session.set('editing_state', false);
-// Session.set('editing_zip', false);
-// Session.set('editing_phone', false);
-// Session.set('editing_fax', false);
-// Session.set('editing_email', false);
-// Session.set('editing_web', false);
-//
-// Session.set('editing_password', false);
-// Session.set('editing_date', false);
-// Session.set('editing_birthdate', false);
-// Session.set('editing_month', false);
-// Session.set('editing_week', false);
-// Session.set('editing_time', false);
-// Session.set('editing_number', false);
-// Session.set('editing_color', false);
-//
-// Session.set('is_deleting_task', false);
-//
 
 Router.map(function(){
   this.route('customerFormPage', {
@@ -47,39 +20,6 @@ Router.map(function(){
 });
 
 //-------------------------------------------------------------
-// B.  Helpers
-
-// Template.customerFormPage.helpers({
-//   user: function() {
-//     console.log('getting user...');
-//     try {
-//       if (Session.get('current_task') == 'new') {
-//         return {
-//           "FirstName": "",
-//           "LastName": "",
-//           "Company": "",
-//           "Address": "",
-//           "City": "",
-//           "County": "",
-//           "State": "",
-//           "ZIP": "",
-//           "Phone": "",
-//           "Fax": "",
-//           "Email": "",
-//           "Web": ""
-//         };
-//       } else {
-//         return Customers.findOne(Session.get('selected_user'));
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// });
-
-
-
-
 
 
 Template.customerFormPage.events({
@@ -173,12 +113,8 @@ Template.customerFormPage.events({
 });
 
 
-//-------------------------------------------------------------
-// D. Display Readonly Value
-
 
 //-------------------------------------------------------------
-// E. Buttons
 
 Template.customerFormPage.isNewTask = function() {
   if(this._id) {
@@ -222,13 +158,14 @@ Template.customerFormPage.events({
       console.log(err);
     }
 
-    Session.set('current_task', 'view');
+    //Session.set('current_task', 'view');
   },
   'click #deleteUserButton': function() {
     Customers.remove(Session.get('selected_user'));
-    Session.set('current_task', 'view');
+    //Session.set('current_task', 'view');
   },
   'click #cancelDeleteButton': function() {
-    Session.set('current_task', 'view');
+    Router.go('/customers');
+    //Session.set('current_task', 'view');
   }
 });

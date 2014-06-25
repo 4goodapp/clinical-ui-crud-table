@@ -5,9 +5,6 @@ Session.setDefault('customersPaginationCount', 1);
 Session.setDefault('customersSelectedPagination', 0);
 Session.setDefault('customersSkipCount', 0);
 
-// Meteor.autorun(function(){
-//   Meteor.subscribe('customerAccounts');
-// });
 
 //------------------------------------------------
 // ROUTING
@@ -31,7 +28,7 @@ Template.customersListPage.helpers({
       {FirstName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }},
       {LastName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }}
       ]
-    });
+    }).count();
     Session.set('customersReceivedData', new Date());
     Session.set('customersPaginationCount', Math.floor((customersCount - 1) / Session.get('customersTableLimit')) + 1);
     return Customers.find({$or:[
@@ -44,7 +41,7 @@ Template.customersListPage.helpers({
     $(this.find('#customersTable')).tablesorter();
 
     Deps.autorun(function(){
-      console.log(Session.get('customersReceivedData'))
+      console.log(Session.get('customersReceivedData'));
       setTimeout(function(){
         $("#customersTable").trigger("update");
       }, 200);
@@ -94,7 +91,7 @@ Template.customersListPage.helpers({
       paginationArray[i] = {
         index: i
       };
-    };
+    }
     if(paginationArray.length > 1){
       return paginationArray;
     }else{
