@@ -17,7 +17,7 @@ Router.map(function(){
     path: '/customers',
     template: 'customersListPage',
     waitOn: function(){
-      return Meteor.subscribe('customerAccounts');
+      return Meteor.subscribe('customers');
     }
   });
 });
@@ -27,14 +27,14 @@ Router.map(function(){
 
 Template.customersListPage.helpers({
   customersList: function(){
-    var customersCount = CustomerAccounts.find({$or:[
+    var customersCount = Customers.find({$or:[
       {FirstName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }},
       {LastName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }}
       ]
     });
     Session.set('customersReceivedData', new Date());
     Session.set('customersPaginationCount', Math.floor((customersCount - 1) / Session.get('customersTableLimit')) + 1);
-    return CustomerAccounts.find({$or:[
+    return Customers.find({$or:[
       {FirstName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }},
       {LastName: { $regex: Session.get('customersSearchFilter'), $options: 'i' }}
       ]

@@ -1,6 +1,6 @@
-CustomerAccounts =  new Meteor.Collection("customerAccounts");
+Customers =  new Meteor.Collection("customers");
 
-CustomerAccounts.allow({
+Customers.allow({
   insert: function(){
     return true;
   },

@@ -4,10 +4,10 @@ Router.map(function(){
     path: '/customer/:id',
     template: 'customerPreviewPage',
     waitOn: function(){
-      return Meteor.subscribe('customerAccounts');
+      return Meteor.subscribe('customers');
     },
     data: function () {
-      return CustomerAccounts.findOne({_id: this.params.id});
+      return Customers.findOne({_id: this.params.id});
     },
   });
 });
@@ -17,7 +17,7 @@ Template.customerPreviewPage.events({
   },
   'click #customerDeleteButton':function(){
     if(confirm('Are you sure you want to delete ' + this.FirstName + " " + this.LastName + "?")){
-      CustomerAccounts.remove({_id: this._id});
+      Customers.remove({_id: this._id});
       Router.go('/');
     }
   }

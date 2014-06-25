@@ -31,17 +31,17 @@ Router.map(function(){
     path: '/newcustomer',
     template: 'customerFormPage',
     waitOn: function(){
-      return Meteor.subscribe('customerAccounts');
+      return Meteor.subscribe('customers');
     }
   });
   this.route('customerFormPage', {
     path: '/editcustomer/:id',
     template: 'customerFormPage',
     waitOn: function(){
-      return Meteor.subscribe('customerAccounts');
+      return Meteor.subscribe('customers');
     },
     data: function(){
-      return CustomerAccounts.findOne(this.params.id);
+      return Customers.findOne(this.params.id);
     }
   });
 });
@@ -69,7 +69,7 @@ Router.map(function(){
 //           "Web": ""
 //         };
 //       } else {
-//         return CustomerAccounts.findOne(Session.get('selected_user'));
+//         return Customers.findOne(Session.get('selected_user'));
 //       }
 //     } catch (error) {
 //       console.log(error);
@@ -84,84 +84,84 @@ Router.map(function(){
 
 Template.customerFormPage.events({
   'keyup #firstNameInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'FirstName': $('#firstNameInput').val()
       }
     });
   },
   'keyup #lastNameInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'LastName': $('#lastNameInput').val()
       }
     });
   },
   'keyup #companyInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'Company': $('#companyInput').val()
       }
     });
   },
   'keyup #addressInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'Address': $('#addressInput').val()
       }
     });
   },
   'keyup #cityInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'City': $('#cityInput').val()
       }
     });
   },
   'keyup #countyInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'County': $('#countyInput').val()
       }
     });
   },
   'keyup #stateInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'State': $('#stateInput').val()
       }
     });
   },
   'keyup #zipInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'Zip': $('#zipInput').val()
       }
     });
   },
   'keyup #phoneInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'Phone': $('#phoneInput').val()
       }
     });
   },
   'keyup #faxInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'Fax': $('#faxInput').val()
       }
     });
   },
   'keyup #emailInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'Email': $('#emailInput').val()
       }
     });
   },
   'keyup #webInput':function(){
-    CustomerAccounts.update({_id: this._id}, {
+    Customers.update({_id: this._id}, {
       $set: {
         'Web': $('#webInput').val()
       }
@@ -225,7 +225,7 @@ Template.customerFormPage.events({
     Session.set('current_task', 'view');
   },
   'click #deleteUserButton': function() {
-    CustomerAccounts.remove(Session.get('selected_user'));
+    Customers.remove(Session.get('selected_user'));
     Session.set('current_task', 'view');
   },
   'click #cancelDeleteButton': function() {

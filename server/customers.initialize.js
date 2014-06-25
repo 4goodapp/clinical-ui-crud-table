@@ -1,7 +1,7 @@
 
 Meteor.startup(function () {
-  if ((CustomerAccounts.find().count() == 0)) {
-    console.log('No records in CustomerAccounts collection.  Bootstrapping some data.');
+  if ((Customers.find().count() == 0)) {
+    console.log('No records in Customers collection.  Bootstrapping some data.');
 
     // and add some data
     var data = [
@@ -120,9 +120,9 @@ Meteor.startup(function () {
       {"FirstName":"Callie","LastName":"Leboeuf","Company":"Town Motors","Address":"100 S 2nd Ave","City":"Alpena","County":"Alpena","State":"MI","Zip":49707,"Phone":"989-354-3344","Fax":"989-354-3712","Email":"callie@leboeuf.com","Web":"http://www.callieleboeuf.com"},
       {"FirstName":"Joey","LastName":"Bolick","Company":"Utility Trailer Sales","Address":"7700 N Council Rd","City":"Oklahoma City","County":"Oklahoma","State":"OK","Zip":73132,"Phone":"405-728-5972","Fax":"405-728-5244","Email":"joey@bolick.com","Web":"http://www.joeybolick.com"}];
 
-    console.log('Adding records to CustomerAccounts collection.');
+    console.log('Adding records to Customers collection.');
     for (var i = 0; i < data.length; i++) {
-      CustomerAccounts.insert({
+      Customers.insert({
         FirstName:   data[i].FirstName,
         LastName:  data[i].LastName,
         FullName: data[i].FirstName + ' ' + data[i].LastName,
@@ -139,7 +139,7 @@ Meteor.startup(function () {
         createdAt: new Date()
       });
     }
-    console.log('500 records successfully added to CustomerAccounts collection.');
+    console.log('500 records successfully added to Customers collection.');
   }
-  console.log('CustomerAccounts collection initialized and ready.');
+  console.log('Customers collection initialized and ready.');
 });
