@@ -41,12 +41,12 @@ Template.customersListPage.helpers({
     },{limit: Session.get('customersTableLimit'), skip: Session.get('customersSkipCount')});
   },
   rendered: function(){
-    $(this.find('#example')).tablesorter();
+    $(this.find('#customersTable')).tablesorter();
 
     Deps.autorun(function(){
       console.log(Session.get('customersReceivedData'))
       setTimeout(function(){
-        $("#example").trigger("update");
+        $("#customersTable").trigger("update");
       }, 200);
     });
   }
@@ -58,7 +58,7 @@ Template.customersListPage.helpers({
 
 Template.customersListPage.events({
   'keyup #searchInput':function(){
-    Session.set('customersSearchFilter', $('#searchInput').val());
+    Session.set('customersSearchFilter', $('#customersSearchInput').val());
     Session.setDefault('customersSelectedPagination', 0);
     Session.setDefault('customersSkipCount', 0);
   },
