@@ -16,7 +16,7 @@ Router.map(function(){
     path: '/',
     template: "customersListPage",
     waitOn: function(){
-      return Meteor.subscribe('customerAccounts');
+      return Meteor.subscribe('customers');
     }
   });
 });

@@ -40,12 +40,12 @@ Template.customersListPage.helpers({
   rendered: function(){
     $(this.find('#customersTable')).tablesorter();
 
-    Deps.autorun(function(){
-      console.log(Session.get('customersReceivedData'));
-      setTimeout(function(){
-        $("#customersTable").trigger("update");
-      }, 200);
-    });
+    // Deps.autorun(function(){
+    //   console.log(Session.get('customersReceivedData'));
+    //   setTimeout(function(){
+    //     $("#customersTable").trigger("update");
+    //   }, 200);
+    // });
   }
 });
 
