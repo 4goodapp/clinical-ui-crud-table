@@ -1,15 +1,15 @@
 
 Router.map(function(){
-  this.route('customerFormPage', {
+  this.route('customerUpsertPage', {
     path: '/newcustomer',
-    template: 'customerFormPage',
+    template: 'customerUpsertPage',
     waitOn: function(){
       return Meteor.subscribe('customers');
     }
   });
-  this.route('customerFormPage', {
+  this.route('customerUpsertPage', {
     path: '/editcustomer/:id',
-    template: 'customerFormPage',
+    template: 'customerUpsertPage',
     waitOn: function(){
       return Meteor.subscribe('customers');
     },
@@ -22,7 +22,7 @@ Router.map(function(){
 //-------------------------------------------------------------
 
 
-Template.customerFormPage.events({
+Template.customerUpsertPage.events({
   'keyup #firstNameInput':function(){
     Customers.update({_id: this._id}, {
       $set: {
@@ -116,56 +116,62 @@ Template.customerFormPage.events({
 
 //-------------------------------------------------------------
 
-Template.customerFormPage.isNewTask = function() {
-  if(this._id) {
-    return false;
-  }else{
-    return true;
+Template.customerUpsertPage.helpers({
+  getRecordId: function() {
+    if(this._id) {
+      return this._id;
+    }else{
+      return "---";
+    }
   }
-};
+});
 
-Template.customerFormPage.events({
-  'click #createNewCustomerButton': function() {
+Template.customerUpsertPage.events({
+  'click #upsertCustomerButton': function() {
     console.log('creating new user...');
 
-    try {
       // TODO:  add validation functions
-      if ($('#firstNameInput').val().length) {
 
-        Meteor.call('createNewCustomer', {
-          FirstName: $('#firstNameInput').val(),
-          LastName: $('#lastNameInput').val(),
-          Company: $('#companyInput').val(),
-          Address: $('#addressInput').val(),
-          City: $('#cityInput').val(),
-          County: $('#countyInput').val(),
-          State: $('#stateInput').val(),
-          Zip: $('#zipInput').val(),
-          Phone: $('#phoneInput').val(),
-          Fax: $('#faxInput').val(),
-          Email: $('#emailInput').val(),
-          Web: $('#webInput').val()
-        }, function(error, customer) {
+      var customerObject = {
+        FirstName: $('#firstNameInput').val(),
+        LastName: $('#lastNameInput').val(),
+        Company: $('#companyInput').val(),
+        Address: $('#addressInput').val(),
+        City: $('#cityInput').val(),
+        County: $('#countyInput').val(),
+        State: $('#stateInput').val(),
+        Zip: $('#zipInput').val(),
+        Phone: $('#phoneInput').val(),
+        Fax: $('#faxInput').val(),
+        Email: $('#emailInput').val(),
+        Web: $('#webInput').val(),
+        Notes: $('#notesInput').val()
+      };
+
+      if(this._id){
+        console.log('upserting ' + this._id);
+        var self = this;
+        customerObject._id = this._id;
+        Meteor.call('updateCustomer', customerObject, function(error, customer){
+          console.log('error: ' + error);
+          if(customer){
+            console.log('customer: ' + customer);
+            Router.go('/customer/' + self._id);
+          }
+        });
+      }else{
+        Meteor.call('createNewCustomer', customerObject, function(error, customer) {
           console.log('error: ' + error);
           console.log('customer: ' + customer);
           Router.go('/customer/' + customer);
         });
-      } else {
-        Session.set("errorMessage",
-          "Customer needs a name, or why bother?");
       }
-    } catch (err) {
-      console.log(err);
-    }
 
-    //Session.set('current_task', 'view');
   },
   'click #deleteUserButton': function() {
     Customers.remove(Session.get('selected_user'));
-    //Session.set('current_task', 'view');
   },
   'click #cancelDeleteButton': function() {
     Router.go('/customers');
-    //Session.set('current_task', 'view');
   }
 });

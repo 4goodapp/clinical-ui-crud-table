@@ -54,7 +54,7 @@ Template.customersListPage.helpers({
 
 
 Template.customersListPage.events({
-  'keyup #searchInput':function(){
+  'keyup #customersSearchInput':function(){
     Session.set('customersSearchFilter', $('#customersSearchInput').val());
     Session.setDefault('customersSelectedPagination', 0);
     Session.setDefault('customersSkipCount', 0);

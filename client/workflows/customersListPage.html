@@ -7,7 +7,7 @@
             <input id="customersSearchInput" type="text" class="form-control" placeholder="search..." />
           </div>
           <div class="centered col col-md-6">
-            <div class="pull-right btn-group">
+            <div id="customersListLimitButtons" class="pull-right btn-group">
               <button id="twentyButton" class="{{isTwentyActive}} btn btn-default">20</button>
               <button id="fiftyButton" class="{{isFiftyActive}} btn btn-default">50</button>
               <button id="hundredButton" class="{{isHundredActive}} btn btn-default">100</button>
@@ -17,13 +17,13 @@
       <hr/>
 
       <table id="customersTable" class="table table-hover table-striped tablesorter">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Company</th>
-            <th>Zip</th>
-            <th>Email</th>
+        <thead id="customersTableHeader">
+          <tr id="customersTableHeaderRow">
+            <th id="firstNameColumn">First Name</th>
+            <th id="lastNameColumn">Last Name</th>
+            <th id="companyColumn">Company</th>
+            <th id="zipColumn">Zip</th>
+            <th id="emailColumn">Email</th>
           </tr>
         </thead>
         <tbody>
@@ -40,7 +40,7 @@
       </table>
       <hr>
 
-      <div class="btn-group">
+      <div id="customersListPaginationButtons" class="btn-group">
         {{#each paginationButtonList }}
           {{> paginationButton }}
         {{/each}}
